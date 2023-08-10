@@ -1570,16 +1570,19 @@ class RunJobOutput:
 class RunJobTask:
     job_id: int
     job_parameters: Optional[Any] = None
+    notebook_params: Optional['Dict[str,str]'] = None
 
     def as_dict(self) -> dict:
         body = {}
         if self.job_id is not None: body['job_id'] = self.job_id
         if self.job_parameters: body['job_parameters'] = self.job_parameters
+        if self.notebook_params: body['notebook_params'] = self.notebook_params
         return body
 
     @classmethod
     def from_dict(cls, d: Dict[str, any]) -> 'RunJobTask':
-        return cls(job_id=d.get('job_id', None), job_parameters=d.get('job_parameters', None))
+        return cls(job_id=d.get('job_id', None), job_parameters=d.get('job_parameters', None),
+                   notebook_params=d.get('job_parameters', None))
 
 
 class RunLifeCycleState(Enum):
